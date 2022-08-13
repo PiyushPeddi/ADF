@@ -1,0 +1,9 @@
+{
+	"name": "Data1453",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "df804c8b-c43f-43e3-a3a5-581f995a7d94",
+		"tenantId": "8d17a09a-7a88-4c7f-ad97-d1798cfe6b1e"
+	}
+}
