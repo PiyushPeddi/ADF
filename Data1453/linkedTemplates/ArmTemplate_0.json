@@ -475,7 +475,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Lookup Customer",
+						"name": "Lookup Year",
 						"type": "Lookup",
 						"dependsOn": [],
 						"policy": {
@@ -499,6 +499,37 @@
 								"parameters": {}
 							},
 							"firstRowOnly": false
+						}
+					},
+					{
+						"name": "ForEach year",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "Lookup Year",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('Lookup Year').output",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Wait1",
+									"type": "Wait",
+									"dependsOn": [],
+									"userProperties": [],
+									"typeProperties": {
+										"waitTimeInSeconds": 2
+									}
+								}
+							]
 						}
 					}
 				],
