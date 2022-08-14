@@ -131,6 +131,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": "customer.csv",
 						"fileSystem": "output"
 					},
 					"columnDelimiter": ",",
@@ -179,6 +180,7 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": "customer.csv",
 						"container": "input"
 					},
 					"columnDelimiter": ",",
