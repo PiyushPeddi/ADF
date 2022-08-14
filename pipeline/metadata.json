@@ -1,0 +1,31 @@
+{
+	"name": "metadata",
+	"properties": {
+		"activities": [
+			{
+				"name": "Metadata_customer",
+				"type": "GetMetadata",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataset": {
+						"referenceName": "AzureSqlTable_Customer",
+						"type": "DatasetReference"
+					},
+					"fieldList": [
+						"structure",
+						"columnCount"
+					]
+				}
+			}
+		],
+		"annotations": []
+	}
+}
