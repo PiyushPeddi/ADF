@@ -515,7 +515,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@activity('Lookup Year').output",
+								"value": "@activity('Lookup Year').output.value",
 								"type": "Expression"
 							},
 							"isSequential": true,
