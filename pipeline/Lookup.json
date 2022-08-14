@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup Customer",
+				"name": "Lookup Year1",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -26,6 +26,22 @@
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "ForEach year",
+				"type": "ForEach",
+				"dependsOn": [
+					{
+						"activity": "Lookup Year1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"isSequential": true
 				}
 			}
 		],
