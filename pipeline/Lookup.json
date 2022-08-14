@@ -3,7 +3,7 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Lookup Year1",
+				"name": "Lookup Year",
 				"type": "Lookup",
 				"dependsOn": [],
 				"policy": {
@@ -33,7 +33,7 @@
 				"type": "ForEach",
 				"dependsOn": [
 					{
-						"activity": "Lookup Year1",
+						"activity": "Lookup Year",
 						"dependencyConditions": [
 							"Succeeded"
 						]
@@ -41,6 +41,10 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@activity('Lookup Year').output",
+						"type": "Expression"
+					},
 					"isSequential": true
 				}
 			}
