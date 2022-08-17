@@ -530,7 +530,7 @@
 										"value": "@utcnow()",
 										"type": "Expression"
 									},
-									"wildcardFileName": "File_*.CSV",
+									"wildcardFileName": "File_*",
 									"enablePartitionDiscovery": false
 								},
 								"formatSettings": {
