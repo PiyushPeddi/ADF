@@ -51,7 +51,7 @@
 						"referenceName": "DS_SQLTable_sourceData",
 						"type": "DatasetReference"
 					},
-					"firstRowOnly": false
+					"firstRowOnly": true
 				}
 			},
 			{
