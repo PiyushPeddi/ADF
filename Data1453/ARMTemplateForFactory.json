@@ -287,7 +287,7 @@
 										"value": "@{activity('Get Max Modified Date').output.firstRow.last_m}",
 										"type": "Expression"
 									},
-									"type": "Datetime"
+									"type": "DateTime"
 								},
 								"TableName": {
 									"value": "'tbluser'",
