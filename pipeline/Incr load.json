@@ -17,12 +17,12 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "SELECT [LastLoadDate] as LastLoadDate FROM [dbo].[tblControl]",
+						"sqlReaderQuery": "SELECT [LastLoadDate] as LastLoadDate FROM [tblControl]",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
 					"dataset": {
-						"referenceName": "DS_SQLTable_Target",
+						"referenceName": "DS_SQLTable_sourceData",
 						"type": "DatasetReference"
 					},
 					"firstRowOnly": true
@@ -43,7 +43,7 @@
 				"typeProperties": {
 					"source": {
 						"type": "AzureSqlSource",
-						"sqlReaderQuery": "select max(last_m) from [dbo].[tbluser]",
+						"sqlReaderQuery": "select max(last_m) as Last_m from [dbo].[tbluser]",
 						"queryTimeout": "02:00:00",
 						"partitionOption": "None"
 					},
@@ -82,7 +82,7 @@
 					"source": {
 						"type": "AzureSqlSource",
 						"sqlReaderQuery": {
-							"value": "Select * from dbo.tbluser\nwhere last_m<=\n'@{activity('Get Max Modified Date').output.firstRow.Last_m}'\nAnd Last_m>'@{activity('Get Last Updated date').output.firstRow.Lastloaddate}'",
+							"value": "Select * from tbluser\nwhere Last_m<=\n'@{activity('Get Max Modified Date').output.firstRow.Last_m}'\nAnd Last_m>'@{activity('Get Last Updated date').output.firstRow.Lastloaddate}'",
 							"type": "Expression"
 						},
 						"queryTimeout": "02:00:00",
