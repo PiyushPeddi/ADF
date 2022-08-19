@@ -193,7 +193,8 @@
 								"referenceName": "DS_SQLTable_sourceData",
 								"type": "DatasetReference",
 								"parameters": {}
-							}
+							},
+							"firstRowOnly": false
 						}
 					},
 					{
@@ -284,7 +285,7 @@
 							"storedProcedureParameters": {
 								"ModifiedDate": {
 									"value": {
-										"value": "@{activity('Get Max Modified Date').output.firstRow.Last_m}",
+										"value": "@{activity('Get Max Modified Date').output.Last_m}",
 										"type": "Expression"
 									},
 									"type": "DateTime"
