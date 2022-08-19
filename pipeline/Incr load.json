@@ -146,7 +146,7 @@
 							"type": "DateTime"
 						},
 						"TableName": {
-							"value": "'tbluser'",
+							"value": "'userData'",
 							"type": "String"
 						}
 					}
