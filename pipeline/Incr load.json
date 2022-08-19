@@ -90,23 +90,8 @@
 					},
 					"sink": {
 						"type": "AzureSqlSink",
-						"sqlWriterStoredProcedureName": "[dbo].[SPUpdateLoadInfo]",
-						"storedProcedureParameters": {
-							"ModifiedDate": {
-								"type": "DateTime",
-								"value": {
-									"value": "@{activity('Get Max Modified Date').output.firstRow.last_m}",
-									"type": "Expression"
-								}
-							},
-							"TableName": {
-								"type": "String",
-								"value": {
-									"value": "tbluser",
-									"type": "Expression"
-								}
-							}
-						},
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
 						"disableMetricsCollection": false
 					},
 					"enableStaging": false,
@@ -131,6 +116,46 @@
 						"type": "DatasetReference"
 					}
 				]
+			},
+			{
+				"name": "Update control table",
+				"type": "SqlServerStoredProcedure",
+				"dependsOn": [
+					{
+						"activity": "Copy data1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"storedProcedureName": "[dbo].[SPUpdateLoadInfo]",
+					"storedProcedureParameters": {
+						"ModifiedDate": {
+							"value": {
+								"value": "@{activity('Get Max Modified Date').output.firstRow.last_m}",
+								"type": "Expression"
+							},
+							"type": "Datetime"
+						},
+						"TableName": {
+							"value": "'tbluser'",
+							"type": "String"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureSqlDatabase1",
+					"type": "LinkedServiceReference"
+				}
 			}
 		],
 		"annotations": []
