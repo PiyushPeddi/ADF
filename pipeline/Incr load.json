@@ -138,11 +138,8 @@
 					"storedProcedureName": "[dbo].[SPUpdateLoadInfo]",
 					"storedProcedureParameters": {
 						"ModifiedDate": {
-							"value": {
-								"value": "@{activity('Get Max Modified Date').output.firstRow.last_m}",
-								"type": "Expression"
-							},
-							"type": "Datetime"
+							"value": "@{activity('Get Max Modified Date').output.firstRow.last_m}",
+							"type": "DateTime"
 						},
 						"TableName": {
 							"value": "'tbluser'",
