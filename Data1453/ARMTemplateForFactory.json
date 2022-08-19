@@ -284,7 +284,7 @@
 							"storedProcedureParameters": {
 								"ModifiedDate": {
 									"value": {
-										"value": "@{activity('Get Max Modified Date').output.firstRow.last_m}",
+										"value": "@{activity('Get Max Modified Date').output.firstRow.Last_m}",
 										"type": "Expression"
 									},
 									"type": "DateTime"
