@@ -6,6 +6,13 @@
 			"sources": [
 				{
 					"dataset": {
+						"referenceName": "AZSQLTGT_UserData",
+						"type": "DatasetReference"
+					},
+					"name": "DestinationData"
+				},
+				{
+					"dataset": {
 						"referenceName": "AzSQLSRC_TBLUser",
 						"type": "DatasetReference"
 					},
@@ -13,12 +20,29 @@
 				}
 			],
 			"sinks": [],
-			"transformations": [],
+			"transformations": [
+				{
+					"name": "existsornot1"
+				}
+			],
 			"scriptLines": [
+				"source(output(",
+				"          Key as integer,",
+				"          Name as string,",
+				"          Phone as string,",
+				"          Last_m as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> DestinationData",
 				"source(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> SourceData"
+				"     format: 'table') ~> SourceData",
+				"DestinationData, SourceData exists(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     negate:true,",
+				"     broadcast: 'auto')~> existsornot1"
 			]
 		}
 	}
