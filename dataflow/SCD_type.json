@@ -1,0 +1,112 @@
+{
+	"name": "SCD_type",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "AzSQLSRC_TBLUser",
+						"type": "DatasetReference"
+					},
+					"name": "SourceData"
+				},
+				{
+					"dataset": {
+						"referenceName": "AZSQLTGT_UserData",
+						"type": "DatasetReference"
+					},
+					"name": "DataDestination"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "AZSQLTGT_UserData",
+						"type": "DatasetReference"
+					},
+					"name": "sink2"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzSQLSRC_TBLUser",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "ExistsOrNot1"
+				},
+				{
+					"name": "ExistsOrNot2"
+				},
+				{
+					"name": "alterRowData"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          Key as integer,",
+				"          Name as string,",
+				"          Phone as string,",
+				"          Last_m as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> SourceData",
+				"source(output(",
+				"          Key as integer,",
+				"          Name as string,",
+				"          Phone as string,",
+				"          Last_m as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> DataDestination",
+				"SourceData, DataDestination exists(SourceData@Key == DataDestination@Key,",
+				"     negate:true,",
+				"     broadcast: 'auto')~> ExistsOrNot1",
+				"SourceData, DataDestination exists(SourceData@Key == DataDestination@Key,",
+				"     negate:false,",
+				"     broadcast: 'auto')~> ExistsOrNot2",
+				"ExistsOrNot2 alterRow(updateIf(true())) ~> alterRowData",
+				"alterRowData sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Key as integer,",
+				"          Name as string,",
+				"          Phone as string,",
+				"          Last_m as date",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:false,",
+				"     updateable:true,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink2",
+				"ExistsOrNot1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          Key as integer,",
+				"          Name as string,",
+				"          Phone as string,",
+				"          Last_m as date",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
+			]
+		}
+	}
+}
