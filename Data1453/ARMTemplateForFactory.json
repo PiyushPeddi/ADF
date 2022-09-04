@@ -1412,7 +1412,7 @@
 						},
 						{
 							"dataset": {
-								"referenceName": "AzSQLSRC_TBLUser",
+								"referenceName": "AZSQLTGT_UserData",
 								"type": "DatasetReference"
 							},
 							"name": "sink1"
