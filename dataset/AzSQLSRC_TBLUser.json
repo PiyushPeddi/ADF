@@ -1,0 +1,12 @@
+{
+	"name": "AzSQLSRC_TBLUser",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSql_Source",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
