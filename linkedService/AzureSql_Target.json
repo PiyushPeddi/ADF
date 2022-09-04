@@ -1,0 +1,12 @@
+{
+	"name": "AzureSql_Target",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"connectionString": "integrated security=False;encrypt=True;connection timeout=30;data source=adft.database.windows.net;initial catalog=ADFDB_Target;user id=ananth",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDE2M0QxOEU1LTA3QUItNDM0Mi1CMTRBLUJFMzc1NjA4RDBDMl9jZTU4NWFiYi0wNWIxLTQwZTItOGVlOS1mNGU3OTc3MmNlY2EiDQp9"
+		}
+	}
+}
