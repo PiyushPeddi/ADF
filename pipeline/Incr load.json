@@ -111,7 +111,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "DS_SQLTable_Target",
+						"referenceName": "DS_SQLTable_t",
 						"type": "DatasetReference"
 					}
 				]
