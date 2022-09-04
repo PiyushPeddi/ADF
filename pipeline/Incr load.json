@@ -139,7 +139,7 @@
 					"storedProcedureName": "[dbo].[SPUpdateLoadInfo]",
 					"storedProcedureParameters": {
 						"ModifiedDate": {
-							"value": "'2021-05-01'",
+							"value": "@{activity('Get Max Modified Date').output.firstRow.Last_m}",
 							"type": "Datetime"
 						},
 						"TableName": {
