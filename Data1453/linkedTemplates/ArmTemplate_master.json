@@ -15,6 +15,14 @@
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureSqlDatabase1'"
 		},
+		"AzureSql_Source_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSql_Source'"
+		},
+		"AzureSql_Target_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureSql_Target'"
+		},
 		"adlsgen2_accountKey": {
 			"type": "secureString",
 			"metadata": "Secure string for 'accountKey' of 'adlsgen2'"
@@ -55,6 +63,12 @@
 					},
 					"AzureSqlDatabase1_connectionString": {
 						"value": "[parameters('AzureSqlDatabase1_connectionString')]"
+					},
+					"AzureSql_Source_connectionString": {
+						"value": "[parameters('AzureSql_Source_connectionString')]"
+					},
+					"AzureSql_Target_connectionString": {
+						"value": "[parameters('AzureSql_Target_connectionString')]"
 					},
 					"adlsgen2_accountKey": {
 						"value": "[parameters('adlsgen2_accountKey')]"
