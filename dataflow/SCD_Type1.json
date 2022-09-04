@@ -12,11 +12,14 @@
 					"name": "DestinationData"
 				},
 				{
+					"name": "SourceData"
+				},
+				{
 					"dataset": {
 						"referenceName": "AzSQLSRC_TBLUser",
 						"type": "DatasetReference"
 					},
-					"name": "SourceData"
+					"name": "SourceData1"
 				}
 			],
 			"sinks": [],
@@ -37,10 +40,18 @@
 				"     isolationLevel: 'READ_UNCOMMITTED',",
 				"     format: 'table') ~> DestinationData",
 				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> SourceData",
+				"source(output(",
+				"          Key as integer,",
+				"          Name as string,",
+				"          Phone as string,",
+				"          Last_m as date",
+				"     ),",
+				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     isolationLevel: 'READ_UNCOMMITTED',",
-				"     format: 'table') ~> SourceData",
-				"DestinationData, SourceData exists(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
+				"     format: 'table') ~> SourceData1",
+				"DestinationData, SourceData1 exists(ERROR_FUNCTION('') == ERROR_FUNCTION(''),",
 				"     negate:true,",
 				"     broadcast: 'auto')~> existsornot1"
 			]
