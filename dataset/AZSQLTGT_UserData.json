@@ -1,5 +1,5 @@
 {
-	"name": "AZSQLTGT_TblUser",
+	"name": "AZSQLTGT_UserData",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSql_Target",
