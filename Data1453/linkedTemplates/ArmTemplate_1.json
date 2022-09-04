@@ -686,6 +686,8 @@
 						"     updateable:false,",
 						"     upsertable:false,",
 						"     format: 'table',",
+						"     preSQLs:['set identity_insert [dbo].[userData] ON'],",
+						"     postSQLs:['set identity_insert [dbo].[userData] OFF'],",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
 						"     errorHandlingOption: 'stopOnFirstError') ~> sink1"
