@@ -44,6 +44,10 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
+					"items": {
+						"value": "@activity('List All Tables').output.value",
+						"type": "Expression"
+					},
 					"activities": [
 						{
 							"name": "Copy datafrom AzureSQL to folder",
@@ -94,7 +98,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"FileName": {
-											"value": "@activity('List All Tables').output.firstRow.name",
+											"value": "@item().name",
 											"type": "Expression"
 										}
 									}
