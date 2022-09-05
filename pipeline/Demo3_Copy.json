@@ -43,13 +43,25 @@
 				"inputs": [
 					{
 						"referenceName": "DS_SQLTable_t",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": {
+								"value": "@activity('List All Tables').output.firstRow.name",
+								"type": "Expression"
+							}
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "DS_Target_Files",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"FileName": {
+								"value": "@activity('List All Tables').output.firstRow.name",
+								"type": "Expression"
+							}
+						}
 					}
 				]
 			},
