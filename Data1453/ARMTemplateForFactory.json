@@ -88,7 +88,14 @@
 					{
 						"name": "Copy datafrom AzureSQL to folder",
 						"type": "Copy",
-						"dependsOn": [],
+						"dependsOn": [
+							{
+								"activity": "List All Tables",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
 						"policy": {
 							"timeout": "0.12:00:00",
 							"retry": 0,
@@ -120,16 +127,55 @@
 							{
 								"referenceName": "DS_SQLTable_t",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"TableName": {
+										"value": "@activity('List All Tables').output.firstRow.name",
+										"type": "Expression"
+									}
+								}
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "DS_Target_Files",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"FileName": {
+										"value": "@activity('List All Tables').output.firstRow.name",
+										"type": "Expression"
+									}
+								}
 							}
 						]
+					},
+					{
+						"name": "List All Tables",
+						"type": "Lookup",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "select * from tblTableName",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"dataset": {
+								"referenceName": "DS_SQLTable_t",
+								"type": "DatasetReference",
+								"parameters": {
+									"TableName": "na"
+								}
+							},
+							"firstRowOnly": true
+						}
 					}
 				],
 				"policy": {
@@ -1116,6 +1162,12 @@
 					"referenceName": "AzureSqlDatabase1",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"TableName": {
+						"type": "string",
+						"defaultValue": "na"
+					}
+				},
 				"annotations": [],
 				"type": "AzureSqlTable",
 				"schema": [
@@ -1139,7 +1191,10 @@
 				],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "tblCustomer"
+					"table": {
+						"value": "@dataset().TableName",
+						"type": "Expression"
+					}
 				}
 			},
 			"dependsOn": [
@@ -1197,11 +1252,21 @@
 					"referenceName": "adlsgen2",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"FileName": {
+						"type": "string",
+						"defaultValue": "na"
+					}
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@concat(dataset().FileName,'.txt')",
+							"type": "Expression"
+						},
 						"fileSystem": "output"
 					},
 					"columnDelimiter": ",",
