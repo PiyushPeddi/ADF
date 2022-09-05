@@ -86,9 +86,12 @@
 					},
 					"dataset": {
 						"referenceName": "DS_SQLTable_t",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"TableName": "na"
+						}
 					},
-					"firstRowOnly": true
+					"firstRowOnly": false
 				}
 			}
 		],
