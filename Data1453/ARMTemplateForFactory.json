@@ -107,7 +107,9 @@
 							"dataset": {
 								"referenceName": "DS_SQLTable_t",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"TableName": "na"
+								}
 							},
 							"firstRowOnly": false
 						}
