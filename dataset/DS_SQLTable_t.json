@@ -25,6 +25,10 @@
 				"name": "Last_m",
 				"type": "date"
 			}
-		]
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "tblCustomer"
+		}
 	}
 }
