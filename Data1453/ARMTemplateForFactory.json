@@ -86,69 +86,6 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy datafrom AzureSQL to folder",
-						"type": "Copy",
-						"dependsOn": [
-							{
-								"activity": "List All Tables",
-								"dependencyConditions": [
-									"Succeeded"
-								]
-							}
-						],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "AzureSqlSource",
-								"queryTimeout": "02:00:00",
-								"partitionOption": "None"
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false
-						},
-						"inputs": [
-							{
-								"referenceName": "DS_SQLTable_t",
-								"type": "DatasetReference",
-								"parameters": {
-									"TableName": {
-										"value": "@activity('List All Tables').output.firstRow.name",
-										"type": "Expression"
-									}
-								}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DS_Target_Files",
-								"type": "DatasetReference",
-								"parameters": {
-									"FileName": {
-										"value": "@activity('List All Tables').output.firstRow.name",
-										"type": "Expression"
-									}
-								}
-							}
-						]
-					},
-					{
 						"name": "List All Tables",
 						"type": "Lookup",
 						"dependsOn": [],
@@ -174,7 +111,84 @@
 									"TableName": "na"
 								}
 							},
-							"firstRowOnly": false
+							"firstRowOnly": true
+						}
+					},
+					{
+						"name": "ForEach tablename Copy data",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "List All Tables",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('List All Tables').output.value",
+								"type": "Expression"
+							},
+							"activities": [
+								{
+									"name": "Copy datafrom AzureSQL to folder",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "AzureSqlSource",
+											"queryTimeout": "02:00:00",
+											"partitionOption": "None"
+										},
+										"sink": {
+											"type": "DelimitedTextSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "DelimitedTextWriteSettings",
+												"quoteAllText": true,
+												"fileExtension": ".txt"
+											}
+										},
+										"enableStaging": false
+									},
+									"inputs": [
+										{
+											"referenceName": "DS_SQLTable_t",
+											"type": "DatasetReference",
+											"parameters": {
+												"TableName": {
+													"value": "@activity('List All Tables').output.firstRow.name",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "DS_Target_Files",
+											"type": "DatasetReference",
+											"parameters": {
+												"FileName": {
+													"value": "@item().name",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
 						}
 					}
 				],
