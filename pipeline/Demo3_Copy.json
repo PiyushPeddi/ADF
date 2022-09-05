@@ -23,10 +23,7 @@
 					},
 					"dataset": {
 						"referenceName": "DS_SQLTable_t",
-						"type": "DatasetReference",
-						"parameters": {
-							"TableName": "na"
-						}
+						"type": "DatasetReference"
 					},
 					"firstRowOnly": false
 				}
@@ -86,7 +83,7 @@
 									"type": "DatasetReference",
 									"parameters": {
 										"TableName": {
-											"value": "@activity('List All Tables').output.value",
+											"value": "@item().name",
 											"type": "Expression"
 										}
 									}
