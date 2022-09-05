@@ -797,7 +797,7 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"TableName": {
-													"value": "@activity('List All Tables').output.firstRow.name",
+													"value": "@activity('List All Tables').output.value",
 													"type": "Expression"
 												}
 											}
