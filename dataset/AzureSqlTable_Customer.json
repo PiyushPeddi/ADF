@@ -35,7 +35,7 @@
 		],
 		"typeProperties": {
 			"schema": "dbo",
-			"table": "customer"
+			"table": " tblcustomer"
 		}
 	}
 }
