@@ -410,7 +410,7 @@
 				],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "userData"
+					"table": "tblCustomer"
 				}
 			},
 			"dependsOn": [
@@ -689,17 +689,17 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/Full Load')]",
+			"name": "[concat(parameters('factoryName'), '/Demo3_Copy')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Full Copy",
+						"name": "Copy datafrom AzureSQL to folder",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
-							"timeout": "7.00:00:00",
+							"timeout": "0.12:00:00",
 							"retry": 0,
 							"retryIntervalInSeconds": 30,
 							"secureOutput": false,
@@ -713,30 +713,28 @@
 								"partitionOption": "None"
 							},
 							"sink": {
-								"type": "AzureSqlSink",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
+								"type": "DelimitedTextSink",
+								"storeSettings": {
+									"type": "AzureBlobFSWriteSettings"
+								},
+								"formatSettings": {
+									"type": "DelimitedTextWriteSettings",
+									"quoteAllText": true,
+									"fileExtension": ".txt"
 								}
-							}
+							},
+							"enableStaging": false
 						},
 						"inputs": [
 							{
-								"referenceName": "DS_SQLTable_sourceData",
+								"referenceName": "DS_SQLTable_t",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "DS_SQLTable_t",
+								"referenceName": "DS_Target_Files",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -750,8 +748,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/DS_SQLTable_sourceData')]",
-				"[concat(variables('factoryId'), '/datasets/DS_SQLTable_t')]"
+				"[concat(variables('factoryId'), '/datasets/DS_SQLTable_t')]",
+				"[concat(variables('factoryId'), '/datasets/DS_Target_Files')]"
 			]
 		}
 	]
